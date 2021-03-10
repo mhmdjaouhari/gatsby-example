@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import Loading from "../components/loading";
 import axios from "axios";
 import styled from "styled-components";
 
 import {
   ListGroup,
   ListGroupItem,
-  ListGroupItemHeading,
   Card,
   CardBlock,
 } from "@bootstrap-styled/v4";
+
+const ListGroupItemHeading = styled.h5`
+  font-size: 1.25rem;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 0;
+`;
 
 const Div = styled.div`
   margin-top: 1rem;
@@ -50,9 +59,8 @@ const CardFooter = styled.div`
 
 const windDegToCard = value => {
   value = parseFloat(value);
-  if (value <= 11.25) return "N";
-  value -= 11.25;
   var allDirections = [
+    "N",
     "NNE",
     "NE",
     "ENE",
@@ -68,9 +76,8 @@ const windDegToCard = value => {
     "WNW",
     "NW",
     "NNW",
-    "N",
   ];
-  var dIndex = parseInt(value / 22.5);
+  var dIndex = Math.round((value + 11.25) / 22.5);
   return allDirections[dIndex] ? allDirections[dIndex] : "N";
 };
 
@@ -131,7 +138,7 @@ const Weather = () => {
 
           <ListGroup tag={Div}>
             <ListGroupItem tag={Div}>
-              <ListGroupItemHeading>
+              <ListGroupItemHeading style={{ marginBottom: 0 }}>
                 Weather forecast (7 days)
               </ListGroupItemHeading>
             </ListGroupItem>
@@ -156,7 +163,8 @@ const Weather = () => {
                         </BigText>
                         <div>Feels like {Math.round(day.feels_like.day)}ºC</div>
                         <div>
-                          min. {Math.round(day.temp.min)}ºC & max. {Math.round(day.temp.max)}ºC
+                          min. {Math.round(day.temp.min)}ºC & max.{" "}
+                          {Math.round(day.temp.max)}ºC
                         </div>
                       </Col>
                       <Col>
@@ -172,7 +180,7 @@ const Weather = () => {
           </ListGroup>
         </>
       ) : (
-        <div>Loading...</div>
+        <Loading />
       )}
     </Layout>
   );
