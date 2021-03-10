@@ -7,8 +7,12 @@ import styled from "styled-components";
 const HeaderContainer = styled.header`
   background: rebeccapurple;
   margin-bottom: 1.45rem;
-  max-width: 960;
+`;
+
+const HeaderInner = styled.div`
+  max-width: 960px;
   padding: 1.2rem 1.0875rem;
+  margin: 0 auto;
 `;
 
 const Navbar = styled.div.attrs(() => ({
@@ -28,15 +32,17 @@ const Link = styled(GatsbyLink)`
 const Header = ({ siteTitle }) => {
   return (
     <HeaderContainer>
-      <h2>
-        <Link to="/">{siteTitle}</Link>
-      </h2>
-      <Navbar>
-        <Link to="/aboutme">About me</Link>
-        <Link to="/projects">Projects</Link>
-        <Link to="/contact">Contact</Link>
-        <Link to="/weather">Weather</Link>
-      </Navbar>
+      <HeaderInner>
+        <h2>
+          <Link to="/">{siteTitle}</Link>
+        </h2>
+        <Navbar>
+          <Link to="/aboutme">About me</Link>
+          <Link to="/projects">Projects</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to="/weather">Weather</Link>
+        </Navbar>
+      </HeaderInner>
     </HeaderContainer>
   );
 };
